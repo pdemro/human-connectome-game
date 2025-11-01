@@ -91,14 +91,14 @@
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T023 [P] [US3] Write unit test for Relative game logic in `tests/relative.test.ts`
+- [x] T023 [P] [US3] Write unit test for Relative game logic in `tests/relative.test.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T024 [P] [US3] Implement `Relative` game mode logic in `src/modes/relative.ts`
-- [ ] T025 [P] [US3] Implement visual representation for "glitching" connections in `src/core/renderer.ts`
-- [ ] T026 [US3] Implement "glitch" event simulation in `src/modes/relative.ts`
-- [ ] T027 [US3] Implement logic for the player to correct glitches in `src/main.ts`
+- [x] T024 [P] [US3] Implement `Relative` game mode logic in `src/modes/relative.ts`
+- [x] T025 [P] [US3] Implement visual representation for "glitching" connections in `src/core/renderer.ts`
+- [x] T026 [US3] Implement "glitch" event simulation in `src/modes/relative.ts`
+- [x] T027 [US3] Implement logic for the player to correct glitches in `src/main.ts`
 
 ---
 
@@ -106,10 +106,10 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T028 [P] Implement the game mode selection UI in `src/main.ts`
-- [ ] T029 [P] Add instructions and improve UI/UX in `src/index.html` and `src/main.ts`
-- [ ] T030 Code cleanup and refactoring across the codebase
-- [ ] T031 Final validation of the single `index.html` build output
+- [x] T028 [P] Implement the game mode selection UI in `src/main.ts`
+- [x] T029 [P] Add instructions and improve UI/UX in `src/index.html` and `src/main.ts`
+- [x] T030 Code cleanup and refactoring across the codebase
+- [x] T031 Final validation of the single `index.html` build output
 
 ---
 

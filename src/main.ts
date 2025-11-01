@@ -1,6 +1,7 @@
 import { Renderer } from './core/renderer';
 import { HealthyControl } from './modes/healthyControl';
 import { PwP } from './modes/pwp';
+import { Relative } from './modes/relative';
 import { BrainRegion, Connection, GameMode, NeuralNetwork } from './models/types';
 
 function main() {
@@ -45,8 +46,9 @@ function main() {
 
     // --- Welcome Screen Buttons ---
     const buttons = {
-        healthy: { x: canvas.width / 2 - 150, y: canvas.height / 2 - 50, width: 300, height: 50, text: 'Healthy Control' },
-        pwp: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 20, width: 300, height: 50, text: 'Person with Psychosis' }
+        healthy: { x: canvas.width / 2 - 150, y: canvas.height / 2 - 25, width: 300, height: 50, text: 'Healthy Control' },
+        pwp: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 50, width: 300, height: 50, text: 'Person with Psychosis' },
+        relative: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 125, width: 300, height: 50, text: 'Relative' }
     };
     // ---------------------------
 
@@ -57,7 +59,17 @@ function main() {
         ctx.fillStyle = 'white';
         ctx.font = '48px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Neural Connectivity Game', canvas.width / 2, canvas.height / 2 - 150);
+        ctx.fillText('Neural Connectivity Game', canvas.width / 2, canvas.height / 2 - 200);
+
+        ctx.font = '18px Arial';
+        ctx.fillText('The blue dots represent major brain regions. The lines are neural connections.', canvas.width / 2, canvas.height / 2 - 150);
+        ctx.fillText('Your goal is to build and maintain a healthy network.', canvas.width / 2, canvas.height / 2 - 125);
+
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#ccc';
+        ctx.fillText('Click and drag between nodes to form connections.', canvas.width / 2, canvas.height / 2 - 90);
+        ctx.fillText('Click a red (compromised) or orange (glitching) connection to repair it.', canvas.width / 2, canvas.height / 2 - 65);
+
 
         // Buttons
         ctx.strokeStyle = 'white';
@@ -70,10 +82,8 @@ function main() {
         ctx.strokeRect(buttons.pwp.x, buttons.pwp.y, buttons.pwp.width, buttons.pwp.height);
         ctx.fillText(buttons.pwp.text, canvas.width / 2, buttons.pwp.y + 32);
 
-
-        ctx.fillStyle = '#888';
-        ctx.font = '20px Arial';
-        ctx.fillText('Relative (Coming Soon!)', canvas.width / 2, canvas.height / 2 + 120);
+        ctx.strokeRect(buttons.relative.x, buttons.relative.y, buttons.relative.width, buttons.relative.height);
+        ctx.fillText(buttons.relative.text, canvas.width / 2, buttons.relative.y + 32);
     }
 
     canvas.addEventListener('click', (event) => {
@@ -89,13 +99,17 @@ function main() {
                        mouseY > buttons.pwp.y && mouseY < buttons.pwp.y + buttons.pwp.height) {
                 gameMode = new PwP(neuralNetwork);
                 gameState = 'playing';
+            } else if (mouseX > buttons.relative.x && mouseX < buttons.relative.x + buttons.relative.width &&
+                       mouseY > buttons.relative.y && mouseY < buttons.relative.y + buttons.relative.height) {
+                gameMode = new Relative(neuralNetwork);
+                gameState = 'playing';
             }
         } else if (gameState === 'playing') {
             // Restore connection logic
             const mouseX = event.clientX;
             const mouseY = event.clientY;
             for (const connection of neuralNetwork.connections) {
-                if (connection.status === 'compromised') {
+                if (connection.status === 'compromised' || connection.status === 'glitching') {
                     const { sourceRegion, targetRegion } = connection;
                     const dx = targetRegion.position.x - sourceRegion.position.x;
                     const dy = targetRegion.position.y - sourceRegion.position.y;
