@@ -34,17 +34,13 @@ This will create a `dist` directory containing the `index.html` file.
 
 ## Playing the Game
 
-To play the game, open the `dist/index.html` file in a web browser. You can do this by dragging the file into the browser window or by using the "Open File" menu option in your browser.
-
-## Development
-
-To run the game in development mode with hot-reloading, run the following command:
+To play the game, start the local development server:
 
 ```bash
 npm run dev
 ```
 
-This will start a local development server and open the game in your default browser. Any changes you make to the source code will be automatically reflected in the browser.
+This will start a server and provide a URL (usually `http://127.0.0.1:8000`). Open that URL in your web browser to play the game. The server will also watch for file changes and automatically reload the browser.
 
 ## Running Tests
 

@@ -21,14 +21,14 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Initialize npm project with `npm init -y`
-- [ ] T002 [P] Install dependencies: `npm install typescript esbuild`
-- [ ] T003 [P] Install development dependencies: `npm install vitest @types/node`
-- [ ] T004 [P] Create `tsconfig.json` for TypeScript configuration
-- [ ] T005 Create project structure: `src/`, `dist/`, `tests/`
-- [ ] T006 Create `src/index.html` with a canvas element
-- [ ] T007 Create `src/main.ts` as the main entry point
-- [ ] T008 Create build and test scripts in `package.json`
+- [x] T001 Initialize npm project with `npm init -y`
+- [x] T002 [P] Install dependencies: `npm install typescript esbuild`
+- [x] T003 [P] Install development dependencies: `npm install vitest @types/node`
+- [x] T004 [P] Create `tsconfig.json` for TypeScript configuration
+- [x] T005 Create project structure: `src/`, `dist/`, `tests/`
+- [x] T006 Create `src/index.html` with a canvas element
+- [x] T007 Create `src/main.ts` as the main entry point
+- [x] T008 Create build and test scripts in `package.json`
 
 ---
 
@@ -36,9 +36,9 @@
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T009 Implement the main game loop in `src/main.ts`
-- [ ] T010 [P] Implement a core rendering engine for the canvas in `src/core/renderer.ts`
-- [ ] T011 [P] Define data models from `data-model.md` as TypeScript interfaces in `src/models/types.ts`
+- [x] T009 Implement the main game loop in `src/main.ts`
+- [x] T010 [P] Implement a core rendering engine for the canvas in `src/core/renderer.ts`
+- [x] T011 [P] Define data models from `data-model.md` as TypeScript interfaces in `src/models/types.ts`
 
 ---
 
@@ -52,15 +52,15 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T012 [P] [US1] Write unit test for Healthy Control game logic in `tests/healthyControl.test.ts`
+- [x] T012 [P] [US1] Write unit test for Healthy Control game logic in `tests/healthyControl.test.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Implement `HealthyControl` game mode logic in `src/modes/healthyControl.ts`
-- [ ] T014 [P] [US1] Implement rendering of brain regions in `src/core/renderer.ts`
-- [ ] T015 [P] [US1] Implement rendering of stable connections in `src/core/renderer.ts`
-- [ ] T016 [US1] Implement drag-and-drop mechanic for creating connections in `src/main.ts`
-- [ ] T017 [US1] Implement scoring logic for the Healthy Control mode in `src/modes/healthyControl.ts`
+- [x] T013 [P] [US1] Implement `HealthyControl` game mode logic in `src/modes/healthyControl.ts`
+- [x] T014 [P] [US1] Implement rendering of brain regions in `src/core/renderer.ts`
+- [x] T015 [P] [US1] Implement rendering of stable connections in `src/core/renderer.ts`
+- [x] T016 [US1] Implement drag-and-drop mechanic for creating connections in `src/main.ts`
+- [x] T017 [US1] Implement scoring logic for the Healthy Control mode in `src/modes/healthyControl.ts`
 
 ---
 

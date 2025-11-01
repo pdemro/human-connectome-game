@@ -70,6 +70,10 @@ As a player, I want to play the "Relative" mode to understand the intermediate s
 - **FR-007**: The system MUST visually distinguish between stable, compromised, and glitching connections.
 - **FR-008**: Score MUST increase for each second a connection is stable and decrease for each second it is compromised or glitching.
 - **FR-009**: If the player does not intervene in a "disconnect" or "glitch" event, the negative score impact MUST continue and MAY spread to adjacent connections.
+- **FR-010**: The system MUST display a welcome screen before the game starts, allowing the player to select a game mode.
+- **FR-011**: Game modes that are not yet implemented MUST be displayed as "Coming Soon!" on the welcome screen.
+- **FR-012**: The game MUST have a dark background color to ensure visibility of game elements.
+- **FR-013**: The player's current score MUST be displayed on the screen during gameplay.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -79,6 +83,10 @@ As a player, I want to play the "Relative" mode to understand the intermediate s
 - **Brain Region**: A node in the neural network.
 - **Connection**: A link between two brain regions.
 - **Event**: A "disconnect", "noise", or "glitch" that affects the neural network.
+
+### Initial State
+
+- **IS-001**: The game MUST start with a predefined set of at least three brain regions displayed on the canvas.
 
 ## Success Criteria *(mandatory)*
 

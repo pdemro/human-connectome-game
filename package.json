@@ -1,0 +1,22 @@
+{
+  "name": "human-connectome",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --outfile=dist/main.js --format=esm && cp src/index.html dist/",
+    "dev": "esbuild src/main.ts --bundle --outfile=dist/main.js --format=esm --servedir=dist --watch",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "esbuild": "^0.25.11",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "vitest": "^4.0.6"
+  }
+}
