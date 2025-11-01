@@ -2,6 +2,8 @@
 
 This project, "human-connectome", is a neural connectivity game (001-neural-connectivity-game).
 
+![Screenshot of the neural connectivity game](documents/screenshot.png)
+
 ## Technologies Used
 
 *   TypeScript 5.x
