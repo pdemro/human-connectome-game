@@ -5,6 +5,12 @@
 **Status**: Draft
 **Input**: User description: "Build a game which demonstrates core principals of the acedemic literature in the document @/documents/nihms-1741175.pdf. Here is a general concept: This game would focus on the idea that compromised neural connectivity and certain subtle neural alterations may mark a genetic liability for psychotic psychopathology, especially as seen in first-degree relatives. Core Principle: Aberrant brain connectivity in psychosis and its heritable nature. Gameplay: A puzzle/resource-management game where the player manages a network of neural connections (a "mini-connectome"). Goal: Maintain optimal connectivity and function in the brain network for one of three characters: Healthy Control, Relative, or Person with Psychosis (PwP). Mechanics: Connections are represented by draggable lines or "signals" between different brain regions (visual areas, cognitive areas, reward circuit). PwP Mode: The character starts with "compromised" or "aberrant" connections (represented by visual static or broken lines). The player constantly battles unexpected "disconnects" or "noise" events that impair processing. Relative Mode: The character has a baseline connectivity that is "subtly altered" or prone to smaller, more frequent "glitches" than the control, representing the genetic predisposition and intermediate symptom level reported in the paper. Control Mode: The network is stable, and the challenge is simply optimizing speed and efficiency. Demonstrates: The difference in neural function across the three groups, emphasizing that relatives exhibit an intermediate, subclinical level of abnormality in some measures."
 
+## Clarifications
+
+### Session 2025-11-01
+- Q: How is the score calculated in each mode? → A: Score increases for each second a connection is stable and decreases for each second it's compromised or glitching.
+- Q: What happens if the player does not intervene when a "disconnect" or "glitch" occurs? → A: The negative impact on the score continues and potentially spreads to adjacent connections.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Healthy Control Gameplay (Priority: P1)
@@ -48,7 +54,7 @@ As a player, I want to play the "Relative" mode to understand the intermediate s
 
 ### Edge Cases
 
-- What happens if the player does not intervene when a "disconnect" or "glitch" occurs?
+- If the player does not intervene in an event, the negative score impact will continue and may spread to other connections.
 - How is the score calculated in each mode?
 
 ## Requirements *(mandatory)*
@@ -62,6 +68,8 @@ As a player, I want to play the "Relative" mode to understand the intermediate s
 - **FR-005**: The system MUST simulate "glitches" in the "Relative" mode.
 - **FR-006**: The system MUST provide a scoring mechanism to reflect the player's performance in managing the neural network.
 - **FR-007**: The system MUST visually distinguish between stable, compromised, and glitching connections.
+- **FR-008**: Score MUST increase for each second a connection is stable and decrease for each second it is compromised or glitching.
+- **FR-009**: If the player does not intervene in a "disconnect" or "glitch" event, the negative score impact MUST continue and MAY spread to adjacent connections.
 
 ### Key Entities *(include if feature involves data)*
 
