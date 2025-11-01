@@ -1,8 +1,14 @@
+export interface GameMode {
+    getNetwork(): NeuralNetwork;
+    getScore(): number;
+    update(deltaTime: number): void;
+}
+
 export interface Player {
     score: number;
 }
 
-export type GameMode = 'HEALTHY_CONTROL' | 'PERSON_WITH_PSYCHOSIS' | 'RELATIVE';
+export type GameModeType = 'HEALTHY_CONTROL' | 'PERSON_WITH_PSYCHOSIS' | 'RELATIVE';
 
 export interface NeuralNetwork {
     regions: BrainRegion[];

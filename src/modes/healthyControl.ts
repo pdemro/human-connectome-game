@@ -1,6 +1,6 @@
-import { NeuralNetwork } from "../models/types";
+import { GameMode, NeuralNetwork } from "../models/types";
 
-export class HealthyControl {
+export class HealthyControl implements GameMode {
     private score = 0;
 
     constructor(private network: NeuralNetwork) {}

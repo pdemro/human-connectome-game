@@ -1,6 +1,7 @@
 import { Renderer } from './core/renderer';
 import { HealthyControl } from './modes/healthyControl';
-import { BrainRegion, Connection, NeuralNetwork } from './models/types';
+import { PwP } from './modes/pwp';
+import { BrainRegion, Connection, GameMode, NeuralNetwork } from './models/types';
 
 function main() {
     const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
@@ -26,6 +27,7 @@ function main() {
     resizeCanvas();
 
     let gameState: 'welcome' | 'playing' = 'welcome';
+    let gameMode: GameMode;
 
     // --- Game State ---
     const neuralNetwork: NeuralNetwork = {
@@ -36,19 +38,15 @@ function main() {
         ],
         connections: [],
     };
-    const gameMode = new HealthyControl(neuralNetwork);
     let selectedRegion: BrainRegion | null = null;
     let isDragging = false;
     let mousePos = { x: 0, y: 0 };
     // ------------------
 
-    // --- Welcome Screen Button ---
-    const healthyControlButton = {
-        x: canvas.width / 2 - 150,
-        y: canvas.height / 2 - 25,
-        width: 300,
-        height: 50,
-        text: 'Healthy Control'
+    // --- Welcome Screen Buttons ---
+    const buttons = {
+        healthy: { x: canvas.width / 2 - 150, y: canvas.height / 2 - 50, width: 300, height: 50, text: 'Healthy Control' },
+        pwp: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 20, width: 300, height: 50, text: 'Person with Psychosis' }
     };
     // ---------------------------
 
@@ -59,18 +57,22 @@ function main() {
         ctx.fillStyle = 'white';
         ctx.font = '48px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('Neural Connectivity Game', canvas.width / 2, canvas.height / 2 - 100);
+        ctx.fillText('Neural Connectivity Game', canvas.width / 2, canvas.height / 2 - 150);
 
-        // Healthy Control Button
+        // Buttons
         ctx.strokeStyle = 'white';
         ctx.lineWidth = 2;
-        ctx.strokeRect(healthyControlButton.x, healthyControlButton.y, healthyControlButton.width, healthyControlButton.height);
         ctx.font = '24px Arial';
-        ctx.fillText(healthyControlButton.text, canvas.width / 2, canvas.height / 2 + 8);
+
+        ctx.strokeRect(buttons.healthy.x, buttons.healthy.y, buttons.healthy.width, buttons.healthy.height);
+        ctx.fillText(buttons.healthy.text, canvas.width / 2, buttons.healthy.y + 32);
+
+        ctx.strokeRect(buttons.pwp.x, buttons.pwp.y, buttons.pwp.width, buttons.pwp.height);
+        ctx.fillText(buttons.pwp.text, canvas.width / 2, buttons.pwp.y + 32);
+
 
         ctx.fillStyle = '#888';
         ctx.font = '20px Arial';
-        ctx.fillText('Person with Psychosis (Coming Soon!)', canvas.width / 2, canvas.height / 2 + 80);
         ctx.fillText('Relative (Coming Soon!)', canvas.width / 2, canvas.height / 2 + 120);
     }
 
@@ -78,13 +80,36 @@ function main() {
         if (gameState === 'welcome') {
             const mouseX = event.clientX;
             const mouseY = event.clientY;
-            if (
-                mouseX > healthyControlButton.x &&
-                mouseX < healthyControlButton.x + healthyControlButton.width &&
-                mouseY > healthyControlButton.y &&
-                mouseY < healthyControlButton.y + healthyControlButton.height
-            ) {
+
+            if (mouseX > buttons.healthy.x && mouseX < buttons.healthy.x + buttons.healthy.width &&
+                mouseY > buttons.healthy.y && mouseY < buttons.healthy.y + buttons.healthy.height) {
+                gameMode = new HealthyControl(neuralNetwork);
                 gameState = 'playing';
+            } else if (mouseX > buttons.pwp.x && mouseX < buttons.pwp.x + buttons.pwp.width &&
+                       mouseY > buttons.pwp.y && mouseY < buttons.pwp.y + buttons.pwp.height) {
+                gameMode = new PwP(neuralNetwork);
+                gameState = 'playing';
+            }
+        } else if (gameState === 'playing') {
+            // Restore connection logic
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+            for (const connection of neuralNetwork.connections) {
+                if (connection.status === 'compromised') {
+                    const { sourceRegion, targetRegion } = connection;
+                    const dx = targetRegion.position.x - sourceRegion.position.x;
+                    const dy = targetRegion.position.y - sourceRegion.position.y;
+                    const lenSq = dx * dx + dy * dy;
+                    const t = Math.max(0, Math.min(1, ((mouseX - sourceRegion.position.x) * dx + (mouseY - sourceRegion.position.y) * dy) / lenSq));
+                    const closestX = sourceRegion.position.x + t * dx;
+                    const closestY = sourceRegion.position.y + t * dy;
+                    const dist = Math.sqrt((mouseX - closestX) ** 2 + (mouseY - closestY) ** 2);
+
+                    if (dist < 10) { // 10px tolerance
+                        connection.status = 'stable';
+                        break;
+                    }
+                }
             }
         }
     });

@@ -72,14 +72,14 @@
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T018 [P] [US2] Write unit test for PwP game logic in `tests/pwp.test.ts`
+- [x] T018 [P] [US2] Write unit test for PwP game logic in `tests/pwp.test.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T019 [P] [US2] Implement `PwP` game mode logic in `src/modes/pwp.ts`
-- [ ] T020 [P] [US2] Implement visual representation for "compromised" connections in `src/core/renderer.ts`
-- [ ] T021 [US2] Implement "disconnect" and "noise" event simulation in `src/modes/pwp.ts`
-- [ ] T022 [US2] Implement logic for the player to restore connections in `src/main.ts`
+- [x] T019 [P] [US2] Implement `PwP` game mode logic in `src/modes/pwp.ts`
+- [x] T020 [P] [US2] Implement visual representation for "compromised" connections in `src/core/renderer.ts`
+- [x] T021 [US2] Implement "disconnect" and "noise" event simulation in `src/modes/pwp.ts`
+- [x] T022 [US2] Implement logic for the player to restore connections in `src/main.ts`
 
 ---
 

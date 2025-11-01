@@ -74,6 +74,7 @@ As a player, I want to play the "Relative" mode to understand the intermediate s
 - **FR-011**: Game modes that are not yet implemented MUST be displayed as "Coming Soon!" on the welcome screen.
 - **FR-012**: The game MUST have a dark background color to ensure visibility of game elements.
 - **FR-013**: The player's current score MUST be displayed on the screen during gameplay.
+- **FR-014**: The system MUST start the game in the corresponding mode when a player selects it from the welcome screen.
 
 ### Key Entities *(include if feature involves data)*
 

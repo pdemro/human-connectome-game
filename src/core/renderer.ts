@@ -24,8 +24,22 @@ export class Renderer {
     }
 
     private drawConnection(connection: Connection) {
-        this.ctx.strokeStyle = 'white';
-        this.ctx.lineWidth = 2;
+        switch (connection.status) {
+            case 'compromised':
+                this.ctx.strokeStyle = 'red';
+                this.ctx.lineWidth = 4;
+                break;
+            case 'glitching':
+                this.ctx.strokeStyle = 'orange';
+                this.ctx.lineWidth = 2;
+                break;
+            case 'stable':
+            default:
+                this.ctx.strokeStyle = 'white';
+                this.ctx.lineWidth = 2;
+                break;
+        }
+
         this.ctx.beginPath();
         this.ctx.moveTo(connection.sourceRegion.position.x, connection.sourceRegion.position.y);
         this.ctx.lineTo(connection.targetRegion.position.x, connection.targetRegion.position.y);
