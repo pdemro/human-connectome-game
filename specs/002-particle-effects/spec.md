@@ -52,6 +52,8 @@ As a player, I want to see a distinct particle effect on a neural connection whe
 - **FR-003**: The particle effects for "compromised" and "glitched" states MUST be visually distinguishable from each other.
 - **FR-004**: The system MUST remove the particle effect from a neural connection when its state returns to "healthy".
 - **FR-005**: The particle effects MUST be rendered in a way that maintains a minimum of 30 FPS on the target hardware.
+- **FR-006**: Particles MUST spawn at random points along the entire length of the connection line.
+- **FR-007**: Particle effects MUST be of a sufficient size and density to be clearly visible to the player.
 
 ### Key Entities *(include if feature involves data)*
 

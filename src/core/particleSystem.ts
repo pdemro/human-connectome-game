@@ -30,10 +30,18 @@ class ParticleEmitter {
     }
 
     private createParticle(): Particle {
+        const t = Math.random();
+        const start = this.connection.sourceRegion.position;
+        const end = this.connection.targetRegion.position;
+        const position = {
+            x: start.x + t * (end.x - start.x),
+            y: start.y + t * (end.y - start.y),
+        };
+
         const angle = Math.random() * Math.PI * 2;
         const speed = Math.random() * this.config.particleSpeed;
         return {
-            position: { ...this.connection.sourceRegion.position },
+            position,
             velocity: { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed },
             size: Math.random() * this.config.particleSize,
             color: this.config.particleColor,
@@ -57,7 +65,7 @@ class ParticleEmitter {
 export const compromisedEmitterConfig: ParticleEmitterConfig = {
     particleCount: 100,
     particleLifespan: 1000,
-    particleSize: 2,
+    particleSize: 20,
     particleSpeed: 1,
     particleColor: 'red',
 };
@@ -65,7 +73,7 @@ export const compromisedEmitterConfig: ParticleEmitterConfig = {
 export const glitchedEmitterConfig: ParticleEmitterConfig = {
     particleCount: 50,
     particleLifespan: 500,
-    particleSize: 3,
+    particleSize: 30,
     particleSpeed: 2,
     particleColor: 'orange',
 };
