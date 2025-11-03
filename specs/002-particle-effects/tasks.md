@@ -4,36 +4,36 @@ This document outlines the tasks required to implement the particle effects feat
 
 ## Phase 1: Foundational
 
-- [ ] T001 Create `src/core/particleSystem.ts` with a `ParticleSystem` class.
-- [ ] T002 Implement the `Particle` and `ParticleEmitter` classes in `src/core/particleSystem.ts`.
-- [ ] T003 Add a `ParticleSystem` instance to the `Renderer` class in `src/core/renderer.ts`.
-- [ ] T004 Update the `gameLoop` in `src/main.ts` to call the `update` and `draw` methods of the `ParticleSystem`.
+- [X] T001 Create `src/core/particleSystem.ts` with a `ParticleSystem` class.
+- [X] T002 Implement the `Particle` and `ParticleEmitter` classes in `src/core/particleSystem.ts`.
+- [X] T003 Add a `ParticleSystem` instance to the `Renderer` class in `src/core/renderer.ts`.
+- [X] T004 Update the `gameLoop` in `src/main.ts` to call the `update` and `draw` methods of the `ParticleSystem`.
 
 ## Phase 2: User Story 1 - Visual Cue for Compromised Connection
 
 **Goal**: As a player, I want to see a particle effect on a neural connection when it becomes compromised.
 **Independent Test**: A single connection can be put into a "compromised" state, and the particle effect should be visible.
 
-- [ ] T005 [US1] Create a `ParticleEmitterConfig` for the "compromised" state in `src/core/particleSystem.ts`.
-- [ ] T006 [US1] In `src/main.ts`, when a connection's status changes to "compromised", add a particle emitter to the `ParticleSystem` for that connection.
-- [ ] T007 [US1] In `src/main.ts`, when a connection's status changes from "compromised" to "stable", remove the corresponding particle emitter from the `ParticleSystem`.
-- [ ] T008 [US1] Implement the rendering logic for the "compromised" particle effect in the `ParticleSystem`'s `draw` method.
+- [X] T005 [US1] Create a `ParticleEmitterConfig` for the "compromised" state in `src/core/particleSystem.ts`.
+- [X] T006 [US1] In `src/main.ts`, when a connection's status changes to "compromised", add a particle emitter to the `ParticleSystem` for that connection.
+- [X] T007 [US1] In `src/main.ts`, when a connection's status changes from "compromised" to "stable", remove the corresponding particle emitter from the `ParticleSystem`.
+- [X] T008 [US1] Implement the rendering logic for the "compromised" particle effect in the `ParticleSystem`'s `draw` method.
 
 ## Phase 3: User Story 2 - Visual Cue for Glitched Connection
 
 **Goal**: As a player, I want to see a distinct particle effect on a neural connection when it becomes glitched.
 **Independent Test**: A single connection can be put into a "glitched" state, and a unique particle effect should be visible.
 
-- [ ] T009 [US2] Create a `ParticleEmitterConfig` for the "glitched" state in `src/core/particleSystem.ts`.
-- [ ] T010 [US2] In `src/main.ts`, when a connection's status changes to "glitched", add a particle emitter to the `ParticleSystem` for that connection.
-- [ ] T011 [US2] In `src/main.ts`, when a connection's status changes from "glitched" to "stable", remove the corresponding particle emitter from the `ParticleSystem`.
-- [ ] T012 [US2] Implement the rendering logic for the "glitched" particle effect in the `ParticleSystem`'s `draw` method.
+- [X] T009 [US2] Create a `ParticleEmitterConfig` for the "glitched" state in `src/core/particleSystem.ts`.
+- [X] T010 [US2] In `src/main.ts`, when a connection's status changes to "glitched", add a particle emitter to the `ParticleSystem` for that connection.
+- [X] T011 [US2] In `src/main.ts`, when a connection's status changes from "glitched" to "stable", remove the corresponding particle emitter from the `ParticleSystem`.
+- [X] T012 [US2] Implement the rendering logic for the "glitched" particle effect in the `ParticleSystem`'s `draw` method.
 
 ## Phase 4: Polish & Cross-cutting Concerns
 
-- [ ] T013 Implement a combined particle effect for connections that are both "compromised" and "glitched".
-- [ ] T014 [P] Optimize the particle system based on the performance best practices identified in `research.md`.
-- [ ] T015 [P] Add tests for the `ParticleSystem` in `tests/particleSystem.test.ts`.
+- [X] T013 Implement a combined particle effect for connections that are both "compromised" and "glitched".
+- [X] T014 [P] Optimize the particle system based on the performance best practices identified in `research.md`.
+- [X] T015 [P] Add tests for the `ParticleSystem` in `tests/particleSystem.test.ts`.
 
 ## Dependencies
 

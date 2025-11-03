@@ -1,4 +1,6 @@
 import { GameMode, NeuralNetwork } from "../models/types";
+import { Renderer } from "../core/renderer";
+import { glitchedEmitterConfig } from "../core/particleSystem";
 
 export class Relative implements GameMode {
     private score = 100;
@@ -13,7 +15,7 @@ export class Relative implements GameMode {
         return this.score;
     }
 
-    public update(deltaTime: number) {
+    public update(deltaTime: number, renderer: Renderer) {
         const glitchingCount = this.network.connections.filter(c => c.status === 'glitching').length;
         const stableCount = this.network.connections.filter(c => c.status === 'stable').length;
 
@@ -26,7 +28,9 @@ export class Relative implements GameMode {
             const stableConnections = this.network.connections.filter(c => c.status === 'stable');
             if (stableConnections.length > 0) {
                 const randomIndex = Math.floor(Math.random() * stableConnections.length);
-                stableConnections[randomIndex].status = 'glitching';
+                const connection = stableConnections[randomIndex];
+                connection.status = 'glitching';
+                renderer.particleSystem.addEmitter(connection, glitchedEmitterConfig);
             }
         }
     }

@@ -1,15 +1,15 @@
 # human-connectome
 
-This project, "human-connectome", is a neural connectivity game (001-neural-connectivity-game).
+This project, "human-connectome", is a neural connectivity game.
 
 ![Screenshot of the neural connectivity game](documents/screenshot.png)
 
 ## Technologies Used
 
-*   TypeScript 5.x
-*   Node.js 20.x
-*   esbuild
-*   Vitest
+- TypeScript 5.x
+- Node.js 20.x
+- esbuild
+- Vitest
 
 ## Project Structure
 

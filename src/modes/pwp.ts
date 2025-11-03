@@ -1,4 +1,6 @@
 import { GameMode, NeuralNetwork } from "../models/types";
+import { Renderer } from "../core/renderer";
+import { compromisedEmitterConfig } from "../core/particleSystem";
 
 export class PwP implements GameMode {
     private score = 100; // Start with a higher score that will decrease
@@ -13,7 +15,7 @@ export class PwP implements GameMode {
         return this.score;
     }
 
-    public update(deltaTime: number) {
+    public update(deltaTime: number, renderer: Renderer) {
         // For now, just decrease the score to make the first test pass
         // The event simulation will be implemented next.
         const compromisedCount = this.network.connections.filter(c => c.status === 'compromised').length;
@@ -27,7 +29,9 @@ export class PwP implements GameMode {
             const stableConnections = this.network.connections.filter(c => c.status === 'stable');
             if (stableConnections.length > 0) {
                 const randomIndex = Math.floor(Math.random() * stableConnections.length);
-                stableConnections[randomIndex].status = 'compromised';
+                const connection = stableConnections[randomIndex];
+                connection.status = 'compromised';
+                renderer.particleSystem.addEmitter(connection, compromisedEmitterConfig);
             }
         }
     }

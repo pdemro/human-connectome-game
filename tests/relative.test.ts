@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Relative } from '../src/modes/relative';
 import { NeuralNetwork } from '../src/models/types';
+import { Renderer } from '../src/core/renderer';
+import { glitchedEmitterConfig } from '../src/core/particleSystem';
 
 describe('Relative', () => {
     it('should decrease the score when a connection is glitching', () => {
@@ -13,9 +15,19 @@ describe('Relative', () => {
         const gameMode = new Relative(network);
         const initialScore = gameMode.getScore();
 
+        // Mock renderer for the update method
+        const mockRenderer = {
+            particleSystem: {
+                addEmitter: vi.fn(),
+                removeEmitter: vi.fn(),
+                update: vi.fn(),
+                draw: vi.fn(),
+            },
+        } as unknown as Renderer;
+
         // Manually set a glitch for testing
         gameMode.getNetwork().connections[0].status = 'glitching';
-        gameMode.update(1000); // Let 1 second pass
+        gameMode.update(1000, mockRenderer); // Let 1 second pass
 
         // Expect the score to be lower than the initial score
         expect(gameMode.getScore()).toBeLessThan(initialScore);
@@ -30,13 +42,24 @@ describe('Relative', () => {
         };
         const gameMode = new Relative(network);
 
+        // Mock renderer for the update method
+        const mockRenderer = {
+            particleSystem: {
+                addEmitter: vi.fn(),
+                removeEmitter: vi.fn(),
+                update: vi.fn(),
+                draw: vi.fn(),
+            },
+        } as unknown as Renderer;
+
         // Simulate a long period of time
         for (let i = 0; i < 100; i++) {
-            gameMode.update(100);
+            gameMode.update(100, mockRenderer);
         }
 
         const finalNetwork = gameMode.getNetwork();
         const hasGlitchingConnection = finalNetwork.connections.some(c => c.status === 'glitching');
         expect(hasGlitchingConnection).toBe(true);
+        expect(mockRenderer.particleSystem.addEmitter).toHaveBeenCalled();
     });
 });

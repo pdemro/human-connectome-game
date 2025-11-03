@@ -1,7 +1,12 @@
 import { BrainRegion, Connection } from "../models/types";
+import { ParticleSystem } from "./particleSystem";
 
 export class Renderer {
-    constructor(private ctx: CanvasRenderingContext2D) {}
+    public particleSystem: ParticleSystem;
+
+    constructor(private ctx: CanvasRenderingContext2D) {
+        this.particleSystem = new ParticleSystem(ctx);
+    }
 
     public draw(entities: (BrainRegion | Connection)[]) {
         for (const entity of entities) {

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "esbuild src/main.ts --bundle --outfile=dist/main.js --format=esm && cp src/index.html dist/",
     "dev": "esbuild src/main.ts --bundle --outfile=dist/main.js --format=esm --servedir=dist --watch",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",

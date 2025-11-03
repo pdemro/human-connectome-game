@@ -120,6 +120,9 @@ function main() {
                     const dist = Math.sqrt((mouseX - closestX) ** 2 + (mouseY - closestY) ** 2);
 
                     if (dist < 10) { // 10px tolerance
+                        if (connection.status === 'compromised' || connection.status === 'glitching') {
+                            renderer.particleSystem.removeEmitter(connection);
+                        }
                         connection.status = 'stable';
                         break;
                     }
@@ -189,9 +192,12 @@ function main() {
         if (gameState === 'welcome') {
             drawWelcomeScreen();
         } else if (gameState === 'playing') {
-            gameMode.update(deltaTime);
+            gameMode.update(deltaTime, renderer);
+
+            renderer.particleSystem.update(deltaTime);
 
             renderer.draw([...neuralNetwork.regions, ...neuralNetwork.connections]);
+            renderer.particleSystem.draw();
 
             if (isDragging && selectedRegion) {
                 ctx.strokeStyle = 'yellow';

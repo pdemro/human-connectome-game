@@ -1,7 +1,9 @@
+import { Renderer } from "../core/renderer";
+
 export interface GameMode {
     getNetwork(): NeuralNetwork;
     getScore(): number;
-    update(deltaTime: number): void;
+    update(deltaTime: number, renderer: Renderer): void;
 }
 
 export interface Player {

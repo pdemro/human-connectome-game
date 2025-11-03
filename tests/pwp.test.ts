@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { PwP } from '../src/modes/pwp';
 import { NeuralNetwork } from '../src/models/types';
+import { Renderer } from '../src/core/renderer';
+import { compromisedEmitterConfig } from '../src/core/particleSystem';
 
 describe('PwP', () => {
     it('should decrease the score when a connection is compromised', () => {
@@ -13,8 +15,20 @@ describe('PwP', () => {
         const gameMode = new PwP(network);
         const initialScore = gameMode.getScore();
 
-        // Simulate a disconnect event
-        gameMode.update(1000); // Let 1 second pass
+        // Mock renderer for the update method
+        const mockRenderer = {
+            particleSystem: {
+                addEmitter: vi.fn(),
+                removeEmitter: vi.fn(),
+                update: vi.fn(),
+                draw: vi.fn(),
+            },
+        } as unknown as Renderer;
+
+        // Simulate a compromised connection
+        network.connections[0].status = 'compromised';
+
+        gameMode.update(1000, mockRenderer); // Let 1 second pass
 
         // Expect the score to be lower than the initial score
         expect(gameMode.getScore()).toBeLessThan(initialScore);
@@ -29,13 +43,24 @@ describe('PwP', () => {
         };
         const gameMode = new PwP(network);
 
+        // Mock renderer for the update method
+        const mockRenderer = {
+            particleSystem: {
+                addEmitter: vi.fn(),
+                removeEmitter: vi.fn(),
+                update: vi.fn(),
+                draw: vi.fn(),
+            },
+        } as unknown as Renderer;
+
         // Simulate a long period of time
         for (let i = 0; i < 100; i++) {
-            gameMode.update(100);
+            gameMode.update(100, mockRenderer);
         }
 
         const finalNetwork = gameMode.getNetwork();
         const hasCompromisedConnection = finalNetwork.connections.some(c => c.status === 'compromised');
         expect(hasCompromisedConnection).toBe(true);
+        expect(mockRenderer.particleSystem.addEmitter).toHaveBeenCalled();
     });
 });
