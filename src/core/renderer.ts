@@ -1,5 +1,6 @@
 import { BrainRegion, Connection } from "../models/types";
 import { ParticleSystem } from "./particleSystem";
+import { colorRegistry } from "./colorRegistry";
 
 export class Renderer {
     public particleSystem: ParticleSystem;
@@ -19,7 +20,7 @@ export class Renderer {
     }
 
     private drawBrainRegion(region: BrainRegion) {
-        this.ctx.fillStyle = 'blue';
+        this.ctx.fillStyle = colorRegistry.region;
         this.ctx.beginPath();
         this.ctx.arc(region.position.x, region.position.y, 20, 0, Math.PI * 2);
         this.ctx.fill();
@@ -31,11 +32,11 @@ export class Renderer {
     private drawConnection(connection: Connection) {
         switch (connection.status) {
             case 'compromised':
-                this.ctx.strokeStyle = 'red';
+                this.ctx.strokeStyle = colorRegistry.compromised;
                 this.ctx.lineWidth = 4;
                 break;
             case 'glitching':
-                this.ctx.strokeStyle = 'orange';
+                this.ctx.strokeStyle = colorRegistry.glitching;
                 this.ctx.lineWidth = 2;
                 break;
             case 'stable':

@@ -25,9 +25,17 @@ describe('Relative', () => {
             },
         } as unknown as Renderer;
 
+        const mockColorRegistry = {
+            compromised: 'red',
+            glitching: 'orange',
+            region: 'blue',
+            setCompromisedColor: () => {},
+            setGlitchedColor: () => {},
+            setRegionColor: () => {},
+        };
         // Manually set a glitch for testing
         gameMode.getNetwork().connections[0].status = 'glitching';
-        gameMode.update(1000, mockRenderer); // Let 1 second pass
+        gameMode.update(1000, mockRenderer, mockColorRegistry); // Let 1 second pass
 
         // Expect the score to be lower than the initial score
         expect(gameMode.getScore()).toBeLessThan(initialScore);
@@ -52,9 +60,17 @@ describe('Relative', () => {
             },
         } as unknown as Renderer;
 
+        const mockColorRegistry = {
+            compromised: 'red',
+            glitching: 'orange',
+            region: 'blue',
+            setCompromisedColor: () => {},
+            setGlitchedColor: () => {},
+            setRegionColor: () => {},
+        };
         // Simulate a long period of time
         for (let i = 0; i < 100; i++) {
-            gameMode.update(100, mockRenderer);
+            gameMode.update(100, mockRenderer, mockColorRegistry);
         }
 
         const finalNetwork = gameMode.getNetwork();
