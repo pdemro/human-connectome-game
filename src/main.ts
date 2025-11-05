@@ -2,6 +2,7 @@ import { Renderer } from './core/renderer';
 import { HealthyControl } from './modes/healthyControl';
 import { PwP } from './modes/pwp';
 import { Relative } from './modes/relative';
+import { SocialInterpreter } from './modes/socialInterpreter/socialInterpreter';
 import { BrainRegion, Connection, GameMode, NeuralNetwork } from './models/types';
 import { colorRegistry } from './core/colorRegistry';
 
@@ -49,7 +50,8 @@ function main() {
     const buttons = {
         healthy: { x: canvas.width / 2 - 150, y: canvas.height / 2 - 25, width: 300, height: 50, text: 'Healthy Control' },
         pwp: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 50, width: 300, height: 50, text: 'Person with Psychosis' },
-        relative: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 125, width: 300, height: 50, text: 'Relative' }
+        relative: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 125, width: 300, height: 50, text: 'Relative' },
+        social: { x: canvas.width / 2 - 150, y: canvas.height / 2 + 200, width: 300, height: 50, text: 'Social Interpreter' }
     };
     // ---------------------------
 
@@ -126,6 +128,9 @@ function main() {
 
         ctx.strokeRect(buttons.relative.x, buttons.relative.y, buttons.relative.width, buttons.relative.height);
         ctx.fillText(buttons.relative.text, canvas.width / 2, buttons.relative.y + 32);
+
+        ctx.strokeRect(buttons.social.x, buttons.social.y, buttons.social.width, buttons.social.height);
+        ctx.fillText(buttons.social.text, canvas.width / 2, buttons.social.y + 32);
     }
 
     function hideColorPickers() {
@@ -154,8 +159,18 @@ function main() {
                 gameMode = new Relative(neuralNetwork);
                 gameState = 'playing';
                 hideColorPickers();
+            } else if (mouseX > buttons.social.x && mouseX < buttons.social.x + buttons.social.width &&
+                          mouseY > buttons.social.y && mouseY < buttons.social.y + buttons.social.height) {
+                gameMode = new SocialInterpreter(canvas);
+                gameState = 'playing';
+                hideColorPickers();
             }
         } else if (gameState === 'playing') {
+            if (gameMode instanceof SocialInterpreter) {
+                if (gameMode.handleInput(event.clientX, event.clientY)) {
+                    gameState = 'welcome';
+                }
+            }
             // Restore connection logic
             const mouseX = event.clientX;
             const mouseY = event.clientY;
