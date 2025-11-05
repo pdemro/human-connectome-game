@@ -1,4 +1,5 @@
 import { Connection } from "../models/types";
+import { colorRegistry } from "./colorRegistry";
 
 interface Particle {
     position: { x: number; y: number };
@@ -8,7 +9,7 @@ interface Particle {
     lifespan: number;
 }
 
-interface ParticleEmitterConfig {
+export interface ParticleEmitterConfig {
     particleCount: number;
     particleLifespan: number;
     particleSize: number;
@@ -67,7 +68,7 @@ export const compromisedEmitterConfig: ParticleEmitterConfig = {
     particleLifespan: 1000,
     particleSize: 20,
     particleSpeed: 1,
-    particleColor: 'red',
+    particleColor: colorRegistry.compromised,
 };
 
 export const glitchedEmitterConfig: ParticleEmitterConfig = {
@@ -75,7 +76,7 @@ export const glitchedEmitterConfig: ParticleEmitterConfig = {
     particleLifespan: 500,
     particleSize: 30,
     particleSpeed: 2,
-    particleColor: 'orange',
+    particleColor: colorRegistry.glitching,
 };
 
 export class ParticleSystem {

@@ -1,9 +1,10 @@
 import { Renderer } from "../core/renderer";
+import { colorRegistry } from "../core/colorRegistry";
 
 export interface GameMode {
     getNetwork(): NeuralNetwork;
     getScore(): number;
-    update(deltaTime: number, renderer: Renderer): void;
+    update(deltaTime: number, renderer: Renderer, colorRegistry: typeof colorRegistry): void;
 }
 
 export interface Player {

@@ -14,7 +14,7 @@ export class HealthyControl implements GameMode {
         return this.score;
     }
 
-    public update(deltaTime: number, renderer: Renderer) {
+    public update(deltaTime: number, renderer: Renderer, colorRegistry: any) {
         // In Healthy Control mode, the score simply increases over time.
         this.score += deltaTime / 1000; // 1 point per second
     }

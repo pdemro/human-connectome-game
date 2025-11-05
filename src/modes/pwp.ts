@@ -15,7 +15,7 @@ export class PwP implements GameMode {
         return this.score;
     }
 
-    public update(deltaTime: number, renderer: Renderer) {
+    public update(deltaTime: number, renderer: Renderer, colorRegistry: any) {
         // For now, just decrease the score to make the first test pass
         // The event simulation will be implemented next.
         const compromisedCount = this.network.connections.filter(c => c.status === 'compromised').length;
@@ -31,7 +31,10 @@ export class PwP implements GameMode {
                 const randomIndex = Math.floor(Math.random() * stableConnections.length);
                 const connection = stableConnections[randomIndex];
                 connection.status = 'compromised';
-                renderer.particleSystem.addEmitter(connection, compromisedEmitterConfig);
+                renderer.particleSystem.addEmitter(connection, {
+                    ...compromisedEmitterConfig,
+                    particleColor: colorRegistry.compromised,
+                });
             }
         }
     }

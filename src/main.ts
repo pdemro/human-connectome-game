@@ -3,6 +3,7 @@ import { HealthyControl } from './modes/healthyControl';
 import { PwP } from './modes/pwp';
 import { Relative } from './modes/relative';
 import { BrainRegion, Connection, GameMode, NeuralNetwork } from './models/types';
+import { colorRegistry } from './core/colorRegistry';
 
 function main() {
     const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
@@ -52,6 +53,47 @@ function main() {
     };
     // ---------------------------
 
+    // --- Color Pickers ---
+    const compromisedColorPicker = document.createElement('input');
+    compromisedColorPicker.type = 'color';
+    compromisedColorPicker.value = colorRegistry.compromised;
+    compromisedColorPicker.style.position = 'absolute';
+    compromisedColorPicker.style.top = '20px';
+    compromisedColorPicker.style.left = '20px';
+    document.body.appendChild(compromisedColorPicker);
+
+    const glitchedColorPicker = document.createElement('input');
+    glitchedColorPicker.type = 'color';
+    glitchedColorPicker.value = colorRegistry.glitching;
+    glitchedColorPicker.style.position = 'absolute';
+    glitchedColorPicker.style.top = '20px';
+    glitchedColorPicker.style.left = '100px';
+    document.body.appendChild(glitchedColorPicker);
+
+    const regionColorPicker = document.createElement('input');
+    regionColorPicker.type = 'color';
+    regionColorPicker.value = colorRegistry.region;
+    regionColorPicker.style.position = 'absolute';
+    regionColorPicker.style.top = '20px';
+    regionColorPicker.style.left = '180px';
+    document.body.appendChild(regionColorPicker);
+
+    compromisedColorPicker.addEventListener('input', (event) => {
+        colorRegistry.setCompromisedColor((event.target as HTMLInputElement).value);
+        drawWelcomeScreen();
+    });
+
+    glitchedColorPicker.addEventListener('input', (event) => {
+        colorRegistry.setGlitchedColor((event.target as HTMLInputElement).value);
+        drawWelcomeScreen();
+    });
+
+    regionColorPicker.addEventListener('input', (event) => {
+        colorRegistry.setRegionColor((event.target as HTMLInputElement).value);
+        drawWelcomeScreen();
+    });
+    // --------------------
+
     function drawWelcomeScreen() {
         ctx.fillStyle = '#1a1a1a'; // Dark background
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -86,6 +128,12 @@ function main() {
         ctx.fillText(buttons.relative.text, canvas.width / 2, buttons.relative.y + 32);
     }
 
+    function hideColorPickers() {
+        compromisedColorPicker.style.display = 'none';
+        glitchedColorPicker.style.display = 'none';
+        regionColorPicker.style.display = 'none';
+    }
+
     canvas.addEventListener('click', (event) => {
         if (gameState === 'welcome') {
             const mouseX = event.clientX;
@@ -95,14 +143,17 @@ function main() {
                 mouseY > buttons.healthy.y && mouseY < buttons.healthy.y + buttons.healthy.height) {
                 gameMode = new HealthyControl(neuralNetwork);
                 gameState = 'playing';
+                hideColorPickers();
             } else if (mouseX > buttons.pwp.x && mouseX < buttons.pwp.x + buttons.pwp.width &&
                        mouseY > buttons.pwp.y && mouseY < buttons.pwp.y + buttons.pwp.height) {
                 gameMode = new PwP(neuralNetwork);
                 gameState = 'playing';
+                hideColorPickers();
             } else if (mouseX > buttons.relative.x && mouseX < buttons.relative.x + buttons.relative.width &&
                        mouseY > buttons.relative.y && mouseY < buttons.relative.y + buttons.relative.height) {
                 gameMode = new Relative(neuralNetwork);
                 gameState = 'playing';
+                hideColorPickers();
             }
         } else if (gameState === 'playing') {
             // Restore connection logic
@@ -192,7 +243,7 @@ function main() {
         if (gameState === 'welcome') {
             drawWelcomeScreen();
         } else if (gameState === 'playing') {
-            gameMode.update(deltaTime, renderer);
+            gameMode.update(deltaTime, renderer, colorRegistry);
 
             renderer.particleSystem.update(deltaTime);
 

@@ -28,7 +28,15 @@ describe('PwP', () => {
         // Simulate a compromised connection
         network.connections[0].status = 'compromised';
 
-        gameMode.update(1000, mockRenderer); // Let 1 second pass
+        const mockColorRegistry = {
+            compromised: 'red',
+            glitching: 'orange',
+            region: 'blue',
+            setCompromisedColor: () => {},
+            setGlitchedColor: () => {},
+            setRegionColor: () => {},
+        };
+        gameMode.update(1000, mockRenderer, mockColorRegistry); // Let 1 second pass
 
         // Expect the score to be lower than the initial score
         expect(gameMode.getScore()).toBeLessThan(initialScore);
@@ -53,9 +61,17 @@ describe('PwP', () => {
             },
         } as unknown as Renderer;
 
+        const mockColorRegistry = {
+            compromised: 'red',
+            glitching: 'orange',
+            region: 'blue',
+            setCompromisedColor: () => {},
+            setGlitchedColor: () => {},
+            setRegionColor: () => {},
+        };
         // Simulate a long period of time
         for (let i = 0; i < 100; i++) {
-            gameMode.update(100, mockRenderer);
+            gameMode.update(100, mockRenderer, mockColorRegistry);
         }
 
         const finalNetwork = gameMode.getNetwork();
